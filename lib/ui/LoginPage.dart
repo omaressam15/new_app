@@ -1,4 +1,5 @@
 
+import 'package:New_app/ui/HomePage.dart';
 import 'package:New_app/ui/RegistrationPage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
@@ -31,16 +32,18 @@ class _LoginPageState extends State<LoginPage> {
     }else{
       passwordIsEmpty = false;
     }
-    setState(() {
 
-    });
+
+    if(!phoneIsEmpty && !passwordIsEmpty)
+
+      Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()),);
+
+     setState(() {});
   }
 
     onClick(){
 
-    Navigator.push(context, MaterialPageRoute(builder: (context) => Registration()),
-
-    );
+    Navigator.push(context, MaterialPageRoute(builder: (context) => Registration()),);
     setState(() {});
   }
 
@@ -82,8 +85,6 @@ class _LoginPageState extends State<LoginPage> {
             child: Padding(padding: EdgeInsets.only(top: 40),
               child: Column(
                 children: [
-
-
 
                     Image.asset('assets/images.png',width: 150,),
                     Container(
@@ -188,11 +189,9 @@ class _LoginPageState extends State<LoginPage> {
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(25)),),
 
                         onPressed: (){
-                          if(phoneIsEmpty==true && passwordIsEmpty==true){
+
                             validation();
 
-                          } else
-                             onClick();
                         },
 
                         color: Colors.green,
@@ -203,43 +202,52 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
 
-
-
                     Padding(padding: EdgeInsets.symmetric(vertical: 10),),
-                    Text("هل نسيت كلمة المرور",style: TextStyle(fontSize: 18),),
-                    Padding(padding: EdgeInsets.symmetric(vertical: 50),),
-                    RichText(
+
+                    Container(
+                      height:MediaQuery.of(context).size.height *0.24 ,
+                      width:MediaQuery.of(context).size.width ,
+                      child: Column(
+                        mainAxisAlignment:MainAxisAlignment.spaceBetween ,
+
+                        children: [
+                          Text("هل نسيت كلمة المرور",style: TextStyle(fontSize: 18),),
+
+                          RichText(
 
 
-                      text:TextSpan(
+                            text:TextSpan(
 
 
-                            children: <TextSpan>[
+                                children: <TextSpan>[
 
-                            TextSpan(
-                                text:"ليس لديك حساب ",
-                                style: TextStyle(color: Colors.black,fontSize: 20)
+                                  TextSpan(
+                                      text:"ليس لديك حساب ",
+                                      style: TextStyle(color: Colors.black,fontSize: 20)
 
+                                  ),
+
+                                  TextSpan(
+                                    text:"سجل الان؟",
+
+                                    style: TextStyle(color: Colors.deepOrange,fontSize: 20),
+
+                                    recognizer:TapGestureRecognizer()..onTap = (){onClick();},
+                                  ),
+                                ]
                             ),
 
-                            TextSpan(
-                              text:"سجل الان؟",
+                          ),
 
-                              style: TextStyle(color: Colors.deepOrange,fontSize: 20),
+                        ],
 
-                              recognizer:TapGestureRecognizer()..onTap = (){onClick();},
-                            ),
-                          ]
-                        ),
-
+                      ),
                     ),
 
 
 
 
-
           ],
-
         ),
       ),
           ),
