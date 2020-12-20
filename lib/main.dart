@@ -1,3 +1,4 @@
+import 'package:New_app/ui/HomePage.dart';
 import 'package:New_app/ui/LoginPage.dart';
 import 'package:New_app/ui/ReceivingCodeForMobile.dart';
 import 'package:New_app/ui/RegistrationPage.dart';
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      home:LoginPage(),
+      home:HomeScreen(),
     );
   }
 }

@@ -1,5 +1,6 @@
 
 import 'package:dio/dio.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Services{
 
@@ -8,6 +9,8 @@ class Services{
   final endPoint = 'login';
 
   loginService (String phone, String password ) async {
+
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
 
     Response response = await Dio().post(url+endPoint,
 
