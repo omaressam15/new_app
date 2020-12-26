@@ -10,10 +10,11 @@ class CardHome extends StatelessWidget {
   int numberBathRoom;
   int dimensions;
   int days;
-  Widget icons;
+  Color colors;
+  IconData iconData;
 
   CardHome(
-      {this.imageUrl, this.title, this.location, this.price, this.numberRoom, this.numberBathRoom, this.dimensions, this.days,this.icons});
+      {this.imageUrl, this.title, this.location, this.price, this.numberRoom, this.numberBathRoom, this.dimensions, this.days,this.colors, this.iconData});
 
   @override
 
@@ -132,7 +133,7 @@ class CardHome extends StatelessWidget {
                              mainAxisAlignment: MainAxisAlignment.start,
 
                              children: [
-                               Icon(icons),
+                               Icon(iconData,color: colors,),
                                SizedBox(
                                  width: MediaQuery
                                      .of(context)

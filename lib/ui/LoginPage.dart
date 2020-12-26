@@ -1,4 +1,4 @@
-
+import 'package:New_app/Services/ApiData.dart';
 import 'package:New_app/ui/HomePage.dart';
 import 'package:New_app/ui/RegistrationPage.dart';
 import 'package:flutter/cupertino.dart';
@@ -19,7 +19,7 @@ class _LoginPageState extends State<LoginPage> {
   bool passwordIsEmpty = false;
 
 
-  validation(){
+  validation()async{
 
     if(phoneController.text.isEmpty){
       phoneIsEmpty= true;
@@ -34,9 +34,25 @@ class _LoginPageState extends State<LoginPage> {
     }
 
 
-    if(!phoneIsEmpty && !passwordIsEmpty)
+    if(!phoneIsEmpty && !passwordIsEmpty){
 
-      Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()),);
+      String status;
+
+      status = await Services().loginService(
+
+          mobile :phoneController.text,
+          password :passwordController.text,
+
+      );
+
+      if(status == "success"){
+
+        Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()),);
+
+      }else{
+        print("$status");
+      }
+    }
 
      setState(() {});
   }
@@ -86,7 +102,7 @@ class _LoginPageState extends State<LoginPage> {
               child: Column(
                 children: [
 
-                    Image.asset('assets/images.png',width: 150,),
+                    Image.asset('assets/images/images.png',width: 150,),
                     Container(
                         width: MediaQuery.of(context).size.width*0.9,
                         height:60 ,
@@ -134,8 +150,9 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                     ),
-                    if(phoneIsEmpty==true)
-                      Text("Please enter your phone",style: TextStyle(color:Colors.red,fontWeight: FontWeight.bold  ),),
+                  if(phoneIsEmpty==true)
+                      Text("Please enter your phone",style: TextStyle(color:Colors.red,fontWeight: FontWeight.bold),),
+
                     Container(
                       width: MediaQuery.of(context).size.width*0.9,
                       height:60 ,
@@ -175,7 +192,9 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                   if(phoneIsEmpty==true)
+
                     Text("Please enter your password",style: TextStyle(color:Colors.red,fontWeight: FontWeight.bold),),
+
                     Padding(padding: EdgeInsets.symmetric(vertical: 10),),
 
                     SizedBox(
@@ -243,9 +262,6 @@ class _LoginPageState extends State<LoginPage> {
 
                       ),
                     ),
-
-
-
 
           ],
         ),

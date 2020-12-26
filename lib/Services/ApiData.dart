@@ -1,4 +1,3 @@
-
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -8,22 +7,32 @@ class Services{
 
   final endPoint = 'login';
 
-  loginService (String phone, String password ) async {
+   Future <String> loginService ({String mobile, String password} ) async {
 
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
 
-    Response response = await Dio().post(url+endPoint,
+    Response response;
+    try{
+     response = await Dio().post("$url$endPoint",
+          data: {
+            "mobile":"$mobile",
+            "password":"$password",
+          }
+      );
+     sharedPreferences.setString("token", response.data['token']);
+     sharedPreferences.setInt("id", response.data['id']);
+     sharedPreferences.setString("name", response.data['name']);
+     sharedPreferences.setString("photo", response.data['photo']);
+     return "success";
 
-        data: {
+    }
+   on DioError catch(error){
 
-          "mobile":"$phone",
+      print("$error");
 
-          "password":"$password",
+      return "${error.response.data['errorCode']}";
 
-        }
-
-    );
-
+    }
   }
 }
 

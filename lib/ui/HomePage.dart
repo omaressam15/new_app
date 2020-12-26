@@ -18,31 +18,17 @@ class _HomeScreenState extends State<HomeScreen> {
   List<int> size =[5000,4000,6000,2000];
   List<int> days =[25,45,36,50];
 
-  final List<Widget> icons = [
-    Icon(Icons.location_on,color:Colors.purpleAccent,),
-    Icon(Icons.location_on,color:Colors.green,),
-    Icon(Icons.location_on,color:Colors.lightGreen,),
-    Icon(Icons.location_on,color:Colors.blue,)
+  final List<Color> colors = [
+    Colors.purple,
+    Colors.green,
+    Colors.lightGreenAccent,
+    Colors.grey,
   ];
 
   List<Widget> homeList = List<Widget>();
 
   initializeHomeList() {
-    for(int i =0 ; i< title.length ; i++){
-      homeList.add(
-        CardHome(
-          title: title[i],
-          price: prise[i],
-          imageUrl: imageUrl[i],
-          days: days[i],
-          location: location[i],
-          numberBathRoom: numberBathRoom[i],
-          numberRoom: numberRoom[i],
-          dimensions: size[i],
-          icons: icons,
-        ),
-      );
-    }
+
   }
 
   @override
@@ -86,7 +72,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(bottomLeft: Radius.circular(50),bottomRight: Radius.circular(50)),
                       color: Colors.white,),
-                    child: Column(
+
+                      child: Column(
                       children: [
                         SizedBox(
                           width: MediaQuery.of(context).size.width * 0.8,
@@ -191,15 +178,31 @@ class _HomeScreenState extends State<HomeScreen> {
 
             Padding(padding: EdgeInsets.symmetric(vertical: 20,horizontal: 9),
 
-              child: ListView(
+              child: ListView.builder(
 
                 physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
-                children:
-                homeList,
+                itemCount: colors.length,
 
+
+                itemBuilder: (context, index) {
+
+                  return CardHome(
+
+                        title: title[index],
+                        price: prise[index],
+                        imageUrl: imageUrl[index],
+                        days: days[index],
+                        location: location[index],
+                        numberBathRoom: numberBathRoom[index],
+                        numberRoom: numberRoom[index],
+                        dimensions: size[index],
+                        colors: colors[index],
+                        iconData: Icons.location_on,
+
+                  );
+                },
               ),
-
             ),
           ],
         ),
